@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Tip calculator app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+    <link rel="stylesheet" href="/dist/output.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.12.0/dist/cdn.min.js"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.0/dist/cdn.min.js"></script>
+
+  </head>
+  <body  x-data="{ bill: $persist(''), tipPercent: $persist(''), people: $persist(1) }" class="bg-blue-200/50 font-mono relative">
+    <div class="flex flex-col justify-center items-center">
+      <img src="/images/logo.svg" class="mt-10" alt="" />
+
+      <div
+        class="bg-white shadow-2xl mt-14 grid grid-cols-2 shadow-blue-500/70z rounded-2xl h-[28rem] w-[50rem]"
+      >
+        <form>
+          <div class="grid m-5 grid-rows-3">
+            <div class="mt-4 mb-0 relative">
+              <p class="font-bold text-gray-500 mb-2 text-sm">Bill</p>
+  <label class="block relative">
+              <input
+              x-model="bill"
+              id="bill"
+                class="bg-slate-300/40 peer text-lg h-10 font-bold w-full text-very-strong-cyan focus:outline-none text-right focus:border-sky-500 focus:ring-2 focus:ring-strong-cyan rounded-sm invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                type="number"
+                value=""
+                min="0.01"
+                required
+                max="any"
+                step=".01"
+              />
+                <p
+                id="cant" class="invisible cant absolute -top-6 right-1 peer-out-of-range:visible  text-red-500 ">
+                  Can't be zero
+                </p>
+               
+                </span>
+                
+              </label>
+              <img
+                src="/images/icon-dollar.svg"
+                class="absolute top-10 left-2"
+                alt=""
+              />
+            </div>
+            <div class="grid mt-0 grid-rows-3">
+              <p class="font-bold text-gray-500 text-sm">Select Tip %</p>
+              <div
+                class="row-span-2 grid grid-rows-2 text-xl grid-cols-3 gap-2"
+              >
+                <button
+                @click="tipPercent=5"
+                  class="bg-very-strong-cyan h-10 hover:bg-light-gray-cyan hover:text-very-strong-cyan font-bold rounded-md text-white"
+                >
+                  5%
+                </button>
+                <button
+                                @click="tipPercent=10"
+
+                  class="bg-very-strong-cyan h-10 hover:bg-light-gray-cyan hover:text-very-strong-cyan font-bold rounded-md text-white"
+                >
+                  10%
+                </button>
+                <button
+                                @click="tipPercent=15"
+
+                  class="bg-very-strong-cyan h-10 hover:bg-light-gray-cyan hover:text-very-strong-cyan font-bold rounded-md text-white"
+                >
+                  15%
+                </button>
+                <button
+                                @click="tipPercent=25"
+                  class="bg-very-strong-cyan h-10 hover:bg-light-gray-cyan hover:text-very-strong-cyan font-bold rounded-md text-white"
+                >
+                  25%
+                </button>
+                <button
+                                @click="tipPercent=50"
+
+                  class="bg-very-strong-cyan h-10 hover:bg-light-gray-cyan hover:text-very-strong-cyan font-bold rounded-md text-white"
+                >
+                  50%
+                </button>
+                <input
+                x-model="tipPercent"
+                  type="number"
+                  class="bg-slate-300/40 h-10 text-center focus:text-very-strong-cyan focus:placeholder-transparent hover:bg-light-gray-cyan font-bold text-white focus:outline-none focus:text-right focus:border-sky-500 focus:ring-2 focus:ring-strong-cyan rounded-sm invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
+                  placeholder="Custom"
+                  min="1"
+                  step=".1"
+                  max="100"
+                />
+              </div>
+            </div>
+
+            <div class="mt-8 relative">
+              <p class="font-bold text-gray-500 text-sm" id="people">
+                Number of People
+              </p>
+              <label class="block relative">
+                <input
+                x-model="people"
+                  class="bg-slate-300/40 text-xl peer h-10 font-bold w-full text-very-strong-cyan focus:outline-none text-right focus:border-sky-500 focus:ring-2 focus:ring-strong-cyan rounded-sm invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 out-of-range:after:text-end out-of-range:after:content-[out of range]"
+                  type="number"
+                  required
+                  min="1"
+                  max="any"
+                  step="1"
+                />
+             
+                <p class="invisible absolute -top-6 right-1 peer-out-of-range:visible  text-red-500 ">
+                  Can't be zero
+                </p>
+                  <p class="invisible peer-empty:invisible peer-invalid:visible  text-red-500 ">
+                  Invalid
+                </p>
+                
+              </label>
+
+              <img
+                src="/images/icon-person.svg"
+                class="absolute top-8 left-2"
+                alt=""
+              />
+            </div>
+          </div>
+         
+        </form>
+        <div class="bg-very-strong-cyan grid grid-rows-6 rounded-lg m-8">
+          <div class="row-span-3 relative">
+            <div class="absolute mt-5 w-[90%] top-3 grid grid-cols-4 left-6">
+              <div class="grid col-span-2 grid-rows-2">
+                <h4 class="text-base font-bold text-white">Tip Amount</h4>
+                <p class="text-xs font-bold text-very-light-gray-cyan/40">
+                  / person
+                </p>
+              </div>
+              <div class="col-span-2 text-strong-cyan font-bold text-4xl">
+                <span class=""></span>
+                <span  x-text="'$'+ (bill * tipPercent /(100 *people)).toFixed(2)"></span>
+              </div>
+            </div>
+            <div class="absolute w-[90%] top-28 grid grid-cols-4 left-6">
+              <div class="grid col-span-2 grid-rows-2">
+                <h4 class="text-base font-bold text-white">Total</h4>
+                <p class="text-xs font-bold text-very-light-gray-cyan/40">
+                  / person
+                </p>
+              </div>
+              <div class="col-span-2 text-strong-cyan font-bold text-4xl">
+                <!-- <span class="">$</span> -->
+                <span x-text="'$'+ (bill * tipPercent /100).toFixed(2)"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row-span-2"></div>
+          <div class="row-span-1 mx-1 flex justify-center">
+            <button
+            @click=" bill= ''; tipPercent= ''; people=1"
+              class="bg-light-gray-cyan h-9 text-lg font-bold w-[80%] mx-auto rounded-md text-very-strong-cyan"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
